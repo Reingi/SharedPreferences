@@ -37,31 +37,28 @@ public class MainActivity extends AppCompatActivity {
             pass.setText(saveddata.getString("password",""));
             check.setChecked(true);
         }
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(check.isChecked()){ String use = user.getText().toString();
+                        String pss = pass.getText().toString();
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(check.isChecked()){
+                        sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                    String use = user.getText().toString();
-                    String pss = pass.getText().toString();
+                        editor.putString("usernme",use);
+                        editor.putString("password",pss);
+                        editor.commit();
+                        Toast.makeText(MainActivity.this,"Check box checked",Toast.LENGTH_LONG).show();
+                    }else{
+                        sharedPreferences = getSharedPreferences("User",0);
+                        sharedPreferences.edit().clear().commit();
 
-                    sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                    editor.putString("usernme",use);
-                    editor.putString("password",pss);
-                    editor.commit();
-                    Toast.makeText(MainActivity.this,"Check box checked",Toast.LENGTH_LONG).show();
-                }else{
-                    sharedPreferences = getSharedPreferences("User",0);
-                    sharedPreferences.edit().clear().commit();
-
-                    Toast.makeText(MainActivity.this,"Check box not checked",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this,"Check box not checked",Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
-
-
+            });
+        }
     }
-}
+
+
